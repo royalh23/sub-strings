@@ -1,24 +1,24 @@
-require "pry-byebug"
-
 def substrings(word, dictionary)
-  # Set a counter
-  counter = 0
-
-  # The hash that will be returned
-  hash = {}
-
   # Turn the word into an array
   subwords = word.split
+
+  # Create an empty array to hold the substrings
+  arr = []
 
   subwords.each do |subword|
     dictionary.each do |dict_word|
       if subword.include?(dict_word)
-        
+        arr.push(dict_word)
       end
     end
   end
-  hash
+  
+  # Reduce the array to a hash
+  arr.reduce(Hash.new(0)) do |hash, substr|
+    hash[substr] += 1
+    hash
+  end
 end
 
 dictionary = ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"]
-p substrings("Howdy partner, sit down! How's it going?", dictionary)
+p substrings("below", dictionary)
